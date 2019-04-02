@@ -1,0 +1,178 @@
+{
+	"datetimestamp": "2019-03-21T15:47:12.445",
+	"adapters": {
+		"interlok_firco_proxy": {
+			"channels": {
+				"firco-filter-clink-request-processing-channel": {
+					"workflows": {
+						"standardWorkflow": {
+							"services": {
+								"log-initial-request-log": {
+									"services": {},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "log-initial-request-log"
+								},
+								"add-metadata-init-service": {
+									"services": {},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "add-metadata-init-service"
+								},
+								"pooling-split-join-service": {
+									"services": {
+										"pooling-split-main-service-list": {
+											"services": {
+												"determine-which-endpoint-to-call": {
+													"services": {
+														"CheckTargetEndpoint": {
+															"services": {},
+															"messageCount": 0,
+															"avgMsTaken": 0,
+															"uniqueId": "CheckTargetEndpoint"
+														},
+														"default-service-id": {
+															"services": {
+																"log-processing-default-request": {
+																	"services": {},
+																	"messageCount": 0,
+																	"avgMsTaken": 0,
+																	"uniqueId": "log-processing-default-request"
+																}
+															},
+															"messageCount": 0,
+															"avgMsTaken": 0,
+															"uniqueId": "default-service-id"
+														},
+														"TradeComplianceEndpoint": {
+															"services": {
+																"log-processing-tradecompliance-request": {
+																	"services": {},
+																	"messageCount": 0,
+																	"avgMsTaken": 0,
+																	"uniqueId": "log-processing-tradecompliance-request"
+																}
+															},
+															"messageCount": 0,
+															"avgMsTaken": 0,
+															"uniqueId": "TradeComplianceEndpoint"
+														},
+														"FircoEndpoint": {
+															"services": {
+																"log-processing-firco-request": {
+																	"services": {},
+																	"messageCount": 0,
+																	"avgMsTaken": 0,
+																	"uniqueId": "log-processing-firco-request"
+																},
+																"log-post-conversion-log": {
+																	"services": {},
+																	"messageCount": 0,
+																	"avgMsTaken": 0,
+																	"uniqueId": "log-post-conversion-log"
+																}
+															},
+															"messageCount": 0,
+															"avgMsTaken": 0,
+															"uniqueId": "FircoEndpoint"
+														}
+													},
+													"messageCount": 0,
+													"avgMsTaken": 0,
+													"uniqueId": "determine-which-endpoint-to-call"
+												}
+											},
+											"messageCount": 2,
+											"avgMsTaken": 24,
+											"uniqueId": "pooling-split-main-service-list"
+										}
+									},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "pooling-split-join-service"
+								},
+								"log-post-pooling-split-join-service-log": {
+									"services": {},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "log-post-pooling-split-join-service-log"
+								},
+								"final-jetty-response-service": {
+									"services": {},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "final-jetty-response-service"
+								},
+								"log-final-request-processed-log": {
+									"services": {},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "log-final-request-processed-log"
+								}
+							},
+							"producerActivity": {
+								"msgCount": 0,
+								"averageTimeTaken": 0
+							},
+							"consumerActivity": {
+								"uniqueId": "/screen/clink",
+								"msgCount": 0
+							},
+							"uniqueId": "standardWorkflow"
+						}
+					},
+					"uniqueId": "firco-filter-clink-request-processing-channel"
+				},
+				"performance-metrics-channel": {
+					"workflows": {
+						"main-metric-workflow": {
+							"services": {
+								"log-initial-performance-request-log": {
+									"services": {},
+									"messageCount": 1,
+									"avgMsTaken": 0,
+									"uniqueId": "log-initial-performance-request-log"
+								},
+								"eb2ac714-5e8a-49e0-817d-b9b8467e5d80": {
+									"services": {},
+									"messageCount": 1,
+									"avgMsTaken": 1,
+									"uniqueId": "eb2ac714-5e8a-49e0-817d-b9b8467e5d80"
+								},
+								"log-subset-performance-request-log": {
+									"services": {},
+									"messageCount": 1,
+									"avgMsTaken": 1,
+									"uniqueId": "log-subset-performance-request-log"
+								},
+								"metrics-json-to-csv-service": {
+									"services": {},
+									"messageCount": 1,
+									"avgMsTaken": 1,
+									"uniqueId": "metrics-json-to-csv-service"
+								},
+								"final-metrics-log-service": {
+									"services": {},
+									"messageCount": 0,
+									"avgMsTaken": 0,
+									"uniqueId": "final-metrics-log-service"
+								}
+							},
+							"producerActivity": {
+								"msgCount": 0,
+								"averageTimeTaken": 0
+							},
+							"consumerActivity": {
+								"uniqueId": "udp-profile-consumer",
+								"msgCount": 1
+							},
+							"uniqueId": "main-metric-workflow"
+						}
+					},
+					"uniqueId": "performance-metrics-channel"
+				}
+			},
+			"uniqueId": "interlok_firco_proxy"
+		}
+	}
+}

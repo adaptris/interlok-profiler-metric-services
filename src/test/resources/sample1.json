@@ -1,0 +1,123 @@
+{
+  "datetimestamp": "2018-06-04T17:03:33.773",
+  "adapterMetrics": {
+    "adapters": {
+      "interlok_firco_proxy": {
+        "channels": {
+          "FircoFilterRequestProcessingChannel": {
+            "workflows": {
+              "poolingWorkflow": {
+                "services": {
+                  "log-initial-request-log": {
+                    "messageCount": 1,
+                    "avgMsTaken": 3,
+                    "serviceClass":
+                    "LogMessageService",
+                    "uniqueId":
+                    "log-initial-request-log"
+                  },
+                  "log-request-converted-to-firco-log": {
+                    "messageCount": 1,
+                    "avgMsTaken": 1,
+                    "serviceClass":
+                    "LogMessageService",
+                    "uniqueId":
+                    "log-request-converted-to-firco-log"
+                  },
+                  "add-metadata-init-service": {
+                    "messageCount": 1,
+                    "avgMsTaken": 4,
+                    "serviceClass": "AddMetadataService",
+                    "uniqueId":
+                    "add-metadata-init-service"
+                  },
+                  "41de27af-e482-415d-bd4f-14d3600991fd": {
+                    "messageCount": 1,
+                    "avgMsTaken": 92,
+                    "serviceClass": "JsonPathService",
+                    "uniqueId": "41de27af-e482-415d-bd4f-14d3600991fd"
+                  },
+                  "log-confirm-captured-req-params-log": {
+                    "messageCount": 1,
+                    "avgMsTaken": 2,
+                    "serviceClass":
+                    "LogMessageService",
+                    "uniqueId":
+                    "log-confirm-captured-req-params-log"
+                  },
+                  "a8543f90-9367-43de-a65e-eaa1bb4b8f3d": {
+                    "messageCount": 1,
+                    "avgMsTaken": 974,
+                    "serviceClass":
+                    "PoolingSplitJoinService",
+                    "uniqueId":
+                    "a8543f90-9367-43de-a65e-eaa1bb4b8f3d"
+                  },
+                  "log-post-pooling-split-join-service-log": {
+                    "messageCount":
+                    1,
+                    "avgMsTaken": 16,
+                    "serviceClass":
+                    "LogMessageService",
+                    "uniqueId":
+                    "log-post-pooling-split-join-service-log"
+                  },
+                  "metadata-save-merged-engine-results-to-metadata": {
+                    "messageCount": 1,
+                    "avgMsTaken": 2,
+                    "serviceClass":
+                    "PayloadToMetadataService",
+                    "uniqueId":
+                    "metadata-save-merged-engine-results-to-metadata"
+                  },
+                  "ref-send-back-firco-immediate-response": {
+                    "messageCount":
+                    1,
+                    "avgMsTaken": 46,
+                    "serviceClass": "SharedService",
+                    "uniqueId": "ref-send-back-firco-immediate-response"
+                  },
+                  "final-jetty-response-service": {
+                    "messageCount": 1,
+                    "avgMsTaken": 19,
+                    "serviceClass":
+                    "JettyResponseService",
+                    "uniqueId":
+                    "final-jetty-response-service"
+                  },
+                  "metadata-reload-saved-json-into-payload": {
+                    "messageCount":
+                    1,
+                    "avgMsTaken": 1,
+                    "serviceClass":
+                    "MetadataToPayloadService",
+                    "uniqueId":
+                    "metadata-reload-saved-json-into-payload"
+                  },
+                  "log-final-request-processed-log": {
+                    "messageCount": 1,
+                    "avgMsTaken": 21,
+                    "serviceClass":
+                    "LogMessageService",
+                    "uniqueId":
+                    "log-final-request-processed-log"
+                  }
+                },
+                "consumerActivity": {
+                  "uniqueId": "/screen/firco",
+                  "msgCount": 0
+                },
+                "uniqueId":
+                "poolingWorkflow"
+              }
+            },
+            "uniqueId":
+            "FircoFilterRequestProcessingChannel"
+          }
+        },
+        "uniqueId":
+        "interlok_firco_proxy"
+      }
+    }
+  }
+}
