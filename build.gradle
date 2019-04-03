@@ -1,0 +1,92 @@
+plugins {
+  id 'java'
+  id 'maven'
+  id 'maven-publish'
+  id 'jacoco'
+  id 'groovy'
+  // Manage optional dependencies in maven pom.
+  id 'nebula.optional-base' version '4.0.1'
+
+}
+
+ext {
+  interlokCoreVersion = project.hasProperty('interlokCoreVersion') ? project.getProperty('interlokCoreVersion') : '3.8-SNAPSHOT'
+  releaseVersion = project.hasProperty('releaseVersion') ? project.getProperty('releaseVersion') : '3.8-SNAPSHOT'
+  nexusBaseUrl = project.hasProperty('nexusBaseUrl') ? project.getProperty('nexusBaseUrl') : 'https://nexus.adaptris.net/nexus'
+  mavenPublishUrl = project.hasProperty('mavenPublishUrl') ? project.getProperty('mavenPublishUrl') : nexusBaseUrl + '/content/repositories/snapshots'
+  javadocsBaseUrl = nexusBaseUrl + "/content/sites/javadocs/com/adaptris"
+  repoUsername = project.hasProperty('repoUsername') ? project.getProperty('repoUsername') : 'unknown'
+  repoPassword = project.hasProperty('repoPassword') ? project.getProperty('repoPassword') : 'unknown'
+  defaultNexusRepo = project.hasProperty('defaultNexusRepo') ? project.getProperty('defaultNexusRepo') : 'https://repo1.maven.org/maven2/'
+  offlineJavadocPackageDir = new File(project.buildDir, "offline-javadoc-packages")
+
+  interlokJavadocs= project.hasProperty('interlokJavadocs') ? project.getProperty('interlokJavadocs') : javadocsBaseUrl + "/interlok-core/" + interlokCoreVersion
+  interlokCommonJavadocs= project.hasProperty('interlokCommonJavadocs') ? project.getProperty('interlokCommonJavadocs') : javadocsBaseUrl + "/interlok-common/" + interlokCoreVersion
+  componentName='Interlok Profiler'
+  organizationName = "Adaptris Ltd"
+  organizationUrl = "http://interlok.adaptris.net"
+  slf4jVersion = '1.7.26'
+  aspectjVersion = '1.9.2'
+}
+
+description = """Interlok profiler metrics transformation services"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+group   = 'com.adaptris'
+version = releaseVersion
+def versionDir = "$buildDir/version"
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+  mavenCentral()
+  maven { url "$defaultNexusRepo" }
+  maven {
+      credentials {
+        username repoUsername
+        password repoPassword
+      }
+      url "$nexusBaseUrl/content/groups/private"
+    }
+  maven { url "$nexusBaseUrl/content/groups/public" }
+  maven { url "$nexusBaseUrl/content/repositories/snapshots" }
+  maven { url "$nexusBaseUrl/content/repositories/releases" }
+}
+
+
+repositories {
+        
+     maven { url "https://development.adaptris.net/nexus/content/groups/public" }
+     maven { url "https://development.adaptris.net/nexus/content/groups/private" }
+     maven { url "https://development.adaptris.net/nexus/content/repositories/snapshots" }
+     maven { url "https://development.adaptris.net/nexus/content/repositories/releases" }
+     maven { url "http://nexus.iac.cor3.accuityaccelerator.com/nexus/content/repositories/releases/" }
+     maven { url "http://nexus.iac.cor3.accuityaccelerator.com/nexus/content/repositories/snapshots/" }
+     maven { url "http://jcenter.bintray.com" }
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'com.adaptris', name: 'adp-core', version:'3.7-SNAPSHOT'
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.13'
+    testCompile group: 'org.spockframework', name: 'spock-core', version:'1.1-groovy-2.4'
+    testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.6.5'
+    testCompile group: 'org.objenesis', name: 'objenesis', version:'2.5.1'
+
+	testCompile( 'com.athaydes:spock-reports:1.6.1' ) {
+        transitive = false // this avoids affecting your version of Groovy/Spock
+    }
+}
+
+
+
+test {
+    // set to the same value as 'com.athaydes.spockframework.report.outputDir'
+    outputs.dir "$buildDir/spock-reports"
+/*	
+	testLogging {     events "started", "passed", "skipped", "failed", "standardOut", "standardError" }*/
+}
