@@ -5,7 +5,7 @@ plugins {
   id 'jacoco'
   id 'groovy'
   // Manage optional dependencies in maven pom.
-  id 'nebula.optional-base' version '4.0.1'
+  id 'nebula.optional-base' version '5.0.3'
 
 }
 
