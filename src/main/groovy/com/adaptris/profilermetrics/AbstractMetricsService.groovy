@@ -5,49 +5,49 @@ import com.adaptris.core.ServiceImp
 import com.thoughtworks.xstream.annotations.XStreamImplicit
 
 abstract class AbstractMetricsService extends ServiceImp {
-    protected JSONParser jsonParser
+  protected JSONParser jsonParser
 
 
-    @XStreamImplicit(itemFieldName = "channel-includes")
-    protected List<String> channelIncludePatterns
+  @XStreamImplicit(itemFieldName = "channel-include-pattern")
+  protected List<String> channelIncludePatterns
 
-    @XStreamImplicit(itemFieldName = "channel-excludes")
-    protected List<String> channelExcludePatterns
-
-
-    public AbstractMetricsService() {
-        channelIncludePatterns = new ArrayList<String>()
-        channelExcludePatterns = new ArrayList<String>()
-    }
-
-    public List<String> getChannelIncludePatterns() {
-        return channelIncludePatterns
-    }
-
-    public void setChannelIncludePatterns(List<String> channelIncludePatterns) {
-        this.channelIncludePatterns = channelIncludePatterns
-    }
-
-    public List<String> getChannelExcludePatterns() {
-        return channelExcludePatterns
-    }
-
-    public void setChannelExcludePatterns(List<String> channelExcludePatterns) {
-        this.channelExcludePatterns = channelExcludePatterns
-    }
+  @XStreamImplicit(itemFieldName = "channel-exclude-pattern")
+  protected List<String> channelExcludePatterns
 
 
-    @Override
-    protected void initService() throws CoreException {
-        jsonParser = new JSONParser(channelIncludePatterns, channelExcludePatterns)
-    }
+  public AbstractMetricsService() {
+    channelIncludePatterns = new ArrayList<String>()
+    channelExcludePatterns = new ArrayList<String>()
+  }
 
-    @Override
-    protected void closeService() {
-        jsonParser = null
-    }
+  public List<String> getChannelIncludePatterns() {
+    return channelIncludePatterns
+  }
 
-    @Override
-    void prepare() throws CoreException {
-    }
+  public void setChannelIncludePatterns(List<String> channelIncludePatterns) {
+    this.channelIncludePatterns = channelIncludePatterns
+  }
+
+  public List<String> getChannelExcludePatterns() {
+    return channelExcludePatterns
+  }
+
+  public void setChannelExcludePatterns(List<String> channelExcludePatterns) {
+    this.channelExcludePatterns = channelExcludePatterns
+  }
+
+
+  @Override
+  protected void initService() throws CoreException {
+    jsonParser = new JSONParser(channelIncludePatterns, channelExcludePatterns)
+  }
+
+  @Override
+  protected void closeService() {
+    jsonParser = null
+  }
+
+  @Override
+  void prepare() throws CoreException {
+  }
 }

@@ -34,20 +34,16 @@ class ConfigTestSpec extends Specification {
             def result = configMarshaller.marshal(config);
         then:
             result != null
-            result == """<dummy-placeholder-service-element>
+            result == """<com.adaptris.profilermetrics.ExampleServiceConfig>
   <services>
-    <com.adaptris.profilermetrics.MetricsToCSVService>
+    <metrics-to-csv-service>
       <unique-id>unique-id</unique-id>
-      <channel-include-patterns>
-        <string>asdasds</string>
-      </channel-include-patterns>
-      <channel-exclude-patterns>
-        <string>hello</string>
-        <string>goodbye</string>
-      </channel-exclude-patterns>
-    </com.adaptris.profilermetrics.MetricsToCSVService>
+      <channel-include-pattern>asdasds</channel-include-pattern>
+      <channel-exclude-pattern>hello</channel-exclude-pattern>
+      <channel-exclude-pattern>goodbye</channel-exclude-pattern>
+    </metrics-to-csv-service>
   </services>
-</dummy-placeholder-service-element>"""
+</com.adaptris.profilermetrics.ExampleServiceConfig>"""
     }
 
     private class XpathModeXStream extends XStreamMarshaller {

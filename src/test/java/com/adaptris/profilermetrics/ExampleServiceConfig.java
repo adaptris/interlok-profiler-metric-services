@@ -1,12 +1,10 @@
 package com.adaptris.profilermetrics;
 
-import com.adaptris.core.Service;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@XStreamAlias("dummy-placeholder-service-element")
+import com.adaptris.core.Service;
+
 public class ExampleServiceConfig {
 
     // Note that this is a list so that it comes out nice in XSTream.
