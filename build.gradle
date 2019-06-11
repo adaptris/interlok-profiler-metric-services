@@ -74,7 +74,7 @@ configurations {
 dependencies {
   compile ("com.adaptris:interlok-core:$interlokCoreVersion") {changing= true}
   compile ("org.codehaus.groovy:groovy-all:$groovyVersion") {
-    exclude group: 'org.codehause.groovy', module: 'groovy-testng'
+    exclude group: 'org.codehaus.groovy', module: 'groovy-testng'
     exclude group: 'org.testng', module: 'testng'
     exclude group: 'com.beust', module: 'jcommander'
   }
