@@ -73,13 +73,10 @@ configurations {
 
 dependencies {
   compile ("com.adaptris:interlok-core:$interlokCoreVersion") {changing= true}
-  compile ("org.codehaus.groovy:groovy-all:$groovyVersion") {
-    exclude group: 'org.codehaus.groovy', module: 'groovy-testng'
-    exclude group: 'org.testng', module: 'testng'
-    exclude group: 'com.beust', module: 'jcommander'
-  }
+  compile ("org.codehaus.groovy:groovy-json:$groovyVersion")
+  compile ("org.codehaus.groovy:groovy:$groovyVersion")
   annotationProcessor ("com.adaptris:interlok-core-apt:$interlokCoreVersion") {changing= true}
-  testCompile group: 'org.spockframework', name: 'spock-core', version:'1.1-groovy-2.4'
+  testCompile group: 'org.spockframework', name: 'spock-core', version:'1.3-groovy-2.5'
   testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.6.5'
   testCompile group: 'org.objenesis', name: 'objenesis', version:'3.0.1'
 
@@ -87,11 +84,11 @@ dependencies {
     transitive = false // this avoids affecting your version of Groovy/Spock
   }
 
-  testCompile ("org.testng:testng:7.0.0-beta4")
-  testCompile ("org.codehaus.groovy:groovy-testng:$groovyVersion") {
-    exclude group: 'org.testng', module: 'testng'
-    exclude group: 'com.beust', module: 'jcommander'    
-  }
+  // testCompile ("org.testng:testng:7.0.0-beta4")
+  // testCompile ("org.codehaus.groovy:groovy-testng:$groovyVersion") {
+  //   exclude group: 'org.testng', module: 'testng'
+  //   exclude group: 'com.beust', module: 'jcommander'
+  // }
 
   offlineJavadocPackages ("com.adaptris:interlok-core:$interlokCoreVersion:javadoc@jar") { changing= true}
   offlineJavadocPackages ("com.adaptris:interlok-common:$interlokCoreVersion:javadoc@jar") { changing= true}
