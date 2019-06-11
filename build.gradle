@@ -122,6 +122,18 @@ task generateVersion {
   }
 }
 
+
+jacoco {
+  toolVersion="0.8.3"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
 test {
     // set to the same value as 'com.athaydes.spockframework.report.outputDir'
     outputs.dir "$buildDir/spock-reports"
@@ -167,3 +179,4 @@ publishing {
   }
 }
 
+check.dependsOn jacocoTestReport
