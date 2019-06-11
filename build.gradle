@@ -27,6 +27,7 @@ ext {
   organizationUrl = "http://interlok.adaptris.net"
   slf4jVersion = '1.7.26'
   aspectjVersion = '1.9.2'
+  groovyVersion = '2.5.7'
 }
 
 sourceCompatibility = 1.8
@@ -72,7 +73,8 @@ configurations {
 
 dependencies {
   compile ("com.adaptris:interlok-core:$interlokCoreVersion") {changing= true}
-  compile ("org.codehaus.groovy:groovy-all:2.5.7") {
+  compile ("org.codehaus.groovy:groovy-all:$groovyVersion") {
+    exclude group: 'org.codehause.groovy', module: 'groovy-testng'
     exclude group: 'org.testng', module: 'testng'
     exclude group: 'com.beust', module: 'jcommander'
   }
@@ -87,6 +89,11 @@ dependencies {
   }
 
   testCompile ("org.testng:testng:7.0.0-beta4")
+  testCompile ("org.codehaus.groovy:groovy-testng:$groovyVersion") {
+    exclude group: 'org.testng', module: 'testng'
+    exclude group: 'com.beust', module: 'jcommander'    
+  }
+
   offlineJavadocPackages ("com.adaptris:interlok-core:$interlokCoreVersion:javadoc@jar") { changing= true}
   offlineJavadocPackages ("com.adaptris:interlok-common:$interlokCoreVersion:javadoc@jar") { changing= true}
   javadoc("com.adaptris:interlok-core-apt:$interlokCoreVersion") { changing= true}
