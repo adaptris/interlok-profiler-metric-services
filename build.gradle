@@ -78,7 +78,6 @@ dependencies {
     exclude group: 'org.testng', module: 'testng'
     exclude group: 'com.beust', module: 'jcommander'
   }
-  compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.5.7'
   annotationProcessor ("com.adaptris:interlok-core-apt:$interlokCoreVersion") {changing= true}
   testCompile group: 'org.spockframework', name: 'spock-core', version:'1.1-groovy-2.4'
   testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.6.5'
