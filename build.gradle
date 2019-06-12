@@ -80,7 +80,7 @@ dependencies {
   testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.9.13'
   testCompile group: 'org.objenesis', name: 'objenesis', version:'3.0.1'
 
-	testCompile( 'com.athaydes:spock-reports:1.6.1' ) {
+	testCompile( 'com.athaydes:spock-reports:1.6.2' ) {
     transitive = false // this avoids affecting your version of Groovy/Spock
   }
 
