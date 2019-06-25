@@ -1,6 +1,6 @@
 # interlok-profiler-metric-services
-Interlok profiler based services
 
-## Pre-requisites
+[![GitHub tag](https://img.shields.io/github/tag/adaptris/interlok-profiler-metric-services.svg)](https://github.com/adaptris/interlok-profiler-metric-services/tags) [![Build Status](https://travis-ci.org/adaptris/interlok-profiler-metric-services.svg?branch=develop)](https://travis-ci.org/adaptris/interlok-profiler-metric-services) [![CircleCI](https://circleci.com/gh/adaptris/interlok-profiler-metric-services/tree/develop.svg?style=svg)](https://circleci.com/gh/adaptris/interlok-profiler-metric-services/tree/develop) [![codecov](https://codecov.io/gh/adaptris/interlok-profiler-metric-services/branch/develop/graph/badge.svg)](https://codecov.io/gh/adaptris/interlok-profiler-metric-services) [![Total alerts](https://img.shields.io/lgtm/alerts/g/adaptris/interlok-profiler-metric-services.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/adaptris/interlok-profiler-metric-services/alerts/) [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/adaptris/interlok-profiler-metric-services.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/adaptris/interlok-profiler-metric-services/context:java)
 
-This is a maven groovy project, so use mvn clean compile test package
+Interlok profiler based services.
+

@@ -5,13 +5,13 @@ plugins {
   id 'jacoco'
   id 'groovy'
   // Manage optional dependencies in maven pom.
-  id 'nebula.optional-base' version '4.0.1'
+  id 'nebula.optional-base' version '5.0.3'
 
 }
 
 ext {
-  interlokCoreVersion = project.hasProperty('interlokCoreVersion') ? project.getProperty('interlokCoreVersion') : '3.8-SNAPSHOT'
-  releaseVersion = project.hasProperty('releaseVersion') ? project.getProperty('releaseVersion') : '3.8-SNAPSHOT'
+  interlokCoreVersion = project.hasProperty('interlokCoreVersion') ? project.getProperty('interlokCoreVersion') : '3.9-SNAPSHOT'
+  releaseVersion = project.hasProperty('releaseVersion') ? project.getProperty('releaseVersion') : '3.9-SNAPSHOT'
   nexusBaseUrl = project.hasProperty('nexusBaseUrl') ? project.getProperty('nexusBaseUrl') : 'https://nexus.adaptris.net/nexus'
   mavenPublishUrl = project.hasProperty('mavenPublishUrl') ? project.getProperty('mavenPublishUrl') : nexusBaseUrl + '/content/repositories/snapshots'
   javadocsBaseUrl = nexusBaseUrl + "/content/sites/javadocs/com/adaptris"
@@ -22,14 +22,13 @@ ext {
 
   interlokJavadocs= project.hasProperty('interlokJavadocs') ? project.getProperty('interlokJavadocs') : javadocsBaseUrl + "/interlok-core/" + interlokCoreVersion
   interlokCommonJavadocs= project.hasProperty('interlokCommonJavadocs') ? project.getProperty('interlokCommonJavadocs') : javadocsBaseUrl + "/interlok-common/" + interlokCoreVersion
-  componentName='Interlok Profiler'
+  componentName='Interlok Profiler Metrics'
   organizationName = "Adaptris Ltd"
   organizationUrl = "http://interlok.adaptris.net"
   slf4jVersion = '1.7.26'
   aspectjVersion = '1.9.2'
+  groovyVersion = '2.5.7'
 }
-
-description = """Interlok profiler metrics transformation services"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -53,36 +52,95 @@ repositories {
       url "$nexusBaseUrl/content/groups/private"
     }
   maven { url "$nexusBaseUrl/content/groups/public" }
-  maven { url "$nexusBaseUrl/content/repositories/snapshots" }
-  maven { url "$nexusBaseUrl/content/repositories/releases" }
+  maven { url "$nexusBaseUrl/content/groups/interlok" }
 }
 
 
-repositories {
-        
-     maven { url "https://development.adaptris.net/nexus/content/groups/public" }
-     maven { url "https://development.adaptris.net/nexus/content/groups/private" }
-     maven { url "https://development.adaptris.net/nexus/content/repositories/snapshots" }
-     maven { url "https://development.adaptris.net/nexus/content/repositories/releases" }
-     maven { url "http://nexus.iac.cor3.accuityaccelerator.com/nexus/content/repositories/releases/" }
-     maven { url "http://nexus.iac.cor3.accuityaccelerator.com/nexus/content/repositories/snapshots/" }
-     maven { url "http://jcenter.bintray.com" }
-     maven { url "http://repo.maven.apache.org/maven2" }
+configurations {
+  javadoc {}
+  offlineJavadocPackages {}
+  all*.exclude group: 'c3p0'
+  all*.exclude group: 'commons-logging'
+  all*.exclude group: 'javamail'
+  all*.exclude group: 'javax.mail', module: 'mail'
+  all*.exclude group: 'org.glassfish.hk2.external'
+  all*.exclude group: 'xalan', module: 'xalan'
+  all*.exclude group: 'net.sf.saxon', module: 'saxon'
+  all*.exclude group: 'org.codehaus.woodstox'
+  all*.exclude group: 'org.eclipse.jetty.orbit', module: 'javax.mail.glassfish'
+  all*.exclude group: 'com.vaadin.external.google', module: 'android-json'
 }
 
 dependencies {
-    compile group: 'com.adaptris', name: 'adp-core', version:'3.7-SNAPSHOT'
-    compile group: 'org.codehaus.groovy', name: 'groovy-all', version:'2.4.13'
-    testCompile group: 'org.spockframework', name: 'spock-core', version:'1.1-groovy-2.4'
-    testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.6.5'
-    testCompile group: 'org.objenesis', name: 'objenesis', version:'2.5.1'
+  compile ("com.adaptris:interlok-core:$interlokCoreVersion") {changing= true}
+  compile ("org.codehaus.groovy:groovy-json:$groovyVersion")
+  compile ("org.codehaus.groovy:groovy:$groovyVersion")
+  annotationProcessor ("com.adaptris:interlok-core-apt:$interlokCoreVersion") {changing= true}
+  testCompile group: 'org.spockframework', name: 'spock-core', version:'1.3-groovy-2.5'
+  testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.9.13'
+  testCompile group: 'org.objenesis', name: 'objenesis', version:'3.0.1'
 
-	testCompile( 'com.athaydes:spock-reports:1.6.1' ) {
-        transitive = false // this avoids affecting your version of Groovy/Spock
-    }
+	testCompile( 'com.athaydes:spock-reports:1.6.2' ) {
+    transitive = false // this avoids affecting your version of Groovy/Spock
+  }
+
+  // testCompile ("org.testng:testng:7.0.0-beta4")
+  // testCompile ("org.codehaus.groovy:groovy-testng:$groovyVersion") {
+  //   exclude group: 'org.testng', module: 'testng'
+  //   exclude group: 'com.beust', module: 'jcommander'
+  // }
+
+  offlineJavadocPackages ("com.adaptris:interlok-core:$interlokCoreVersion:javadoc@jar") { changing= true}
+  offlineJavadocPackages ("com.adaptris:interlok-common:$interlokCoreVersion:javadoc@jar") { changing= true}
+  javadoc("com.adaptris:interlok-core-apt:$interlokCoreVersion") { changing= true}
+
 }
 
 
+
+jar {
+  manifest {
+    attributes("Built-By": System.getProperty('user.name'),
+               "Build-Jdk": System.getProperty('java.version'),
+               "Implementation-Title": componentName,
+               "Implementation-Version": project.version,
+               "Implementation-Vendor-Id": project.group,
+               "Implementation-Vendor": organizationName)
+  }
+}
+
+
+sourceSets {
+  main {
+    output.dir(versionDir, builtBy: 'generateVersion')
+  }
+}
+// Generate the META-INF/adaptris-version file
+task generateVersion {
+  doLast {
+    def versionFile = new File(new File(versionDir, 'META-INF'), 'adaptris-version')
+    versionFile.getParentFile().mkdirs()
+    ant.propertyfile(file: versionFile) {
+      entry(key: 'component.name', value: componentName)
+      entry(key: 'groupId', value: project.group)
+      entry(key: 'artifactId', value: project.name)
+      entry(key: 'build.version', value: releaseVersion)
+      entry(key: 'build.date', value: new Date().format('yyyy-MM-dd'))
+    }
+  }
+}
+
+
+jacoco {
+  toolVersion="0.8.3"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
 
 test {
     // set to the same value as 'com.athaydes.spockframework.report.outputDir'
@@ -90,3 +148,43 @@ test {
 /*	
 	testLogging {     events "started", "passed", "skipped", "failed", "standardOut", "standardError" }*/
 }
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+  archives sourcesJar
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+
+      artifact sourcesJar { classifier "sources" }
+
+      pom.withXml {
+        asNode().appendNode("name", componentName)
+        asNode().appendNode("description", "Services that take profiling data and export it various formats")
+        asNode().appendNode("url", "https://interlok.adaptris.net/interlok-docs/developer-profiler.html")
+        def properties = asNode().appendNode("properties")
+        properties.appendNode("target", "3.9.0+")
+        properties.appendNode("tags", "profiling,csv,json,elastic")
+        properties.appendNode("license", "false")
+      }
+    }
+  }
+  repositories {
+    maven {
+      credentials {
+        username repoUsername
+        password repoPassword
+      }
+      url mavenPublishUrl
+    }
+  }
+}
+
+check.dependsOn jacocoTestReport
