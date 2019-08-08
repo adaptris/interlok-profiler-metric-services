@@ -27,7 +27,7 @@ ext {
   organizationUrl = "http://interlok.adaptris.net"
   slf4jVersion = '1.7.26'
   aspectjVersion = '1.9.2'
-  groovyVersion = '2.5.7'
+  groovyVersion = '2.5.8'
 }
 
 sourceCompatibility = 1.8
