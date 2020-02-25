@@ -182,11 +182,12 @@ publishing {
       pom.withXml {
         asNode().appendNode("name", componentName)
         asNode().appendNode("description", "Services that take profiling data and export it various formats")
-        asNode().appendNode("url", "https://interlok.adaptris.net/interlok-docs/developer-profiler.html")
+        // asNode().appendNode("url", "https://interlok.adaptris.net/interlok-docs/developer-profiler.html")
         def properties = asNode().appendNode("properties")
         properties.appendNode("target", "3.9.0+")
         properties.appendNode("tags", "profiling,csv,json,elastic")
         properties.appendNode("license", "false")
+        properties.appendNode("deprecated", "If you want metrics; use interlok-profiler-prometheus")
       }
     }
   }

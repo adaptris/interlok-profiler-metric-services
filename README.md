@@ -4,3 +4,4 @@
 
 Interlok profiler based services.
 
+This is _deprecated_ in favour of [interlok-profiler-prometheus](https://github.com/adaptris/interlok-profiler-prometheus); it is often better to target something that is popular than to hand-roll your own thing. Not only that groovy doesn't support annotations / javadocs which means we don't get all the awesomeness of our existing toolchain.
