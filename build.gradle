@@ -10,8 +10,8 @@ plugins {
 }
 
 ext {
-  interlokCoreVersion = project.hasProperty('interlokCoreVersion') ? project.getProperty('interlokCoreVersion') : '3.9-SNAPSHOT'
-  releaseVersion = project.hasProperty('releaseVersion') ? project.getProperty('releaseVersion') : '3.9-SNAPSHOT'
+  interlokCoreVersion = project.hasProperty('interlokCoreVersion') ? project.getProperty('interlokCoreVersion') : '3.10-SNAPSHOT'
+  releaseVersion = project.hasProperty('releaseVersion') ? project.getProperty('releaseVersion') : '3.10-SNAPSHOT'
   nexusBaseUrl = project.hasProperty('nexusBaseUrl') ? project.getProperty('nexusBaseUrl') : 'https://nexus.adaptris.net/nexus'
   mavenPublishUrl = project.hasProperty('mavenPublishUrl') ? project.getProperty('mavenPublishUrl') : nexusBaseUrl + '/content/repositories/snapshots'
   javadocsBaseUrl = nexusBaseUrl + "/content/sites/javadocs/com/adaptris"
@@ -25,9 +25,9 @@ ext {
   componentName='Interlok Profiler Metrics'
   organizationName = "Adaptris Ltd"
   organizationUrl = "http://interlok.adaptris.net"
-  slf4jVersion = '1.7.26'
+  slf4jVersion = '1.7.30'
   aspectjVersion = '1.9.2'
-  groovyVersion = '2.5.8'
+  groovyVersion = '2.5.9'
 }
 
 sourceCompatibility = 1.8
@@ -96,10 +96,10 @@ dependencies {
   compile ("org.codehaus.groovy:groovy:$groovyVersion")
   annotationProcessor ("com.adaptris:interlok-core-apt:$interlokCoreVersion") {changing= true}
   testCompile group: 'org.spockframework', name: 'spock-core', version:'1.3-groovy-2.5'
-  testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.10.1'
-  testCompile group: 'org.objenesis', name: 'objenesis', version:'3.0.1'
+  testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.10.7'
+  testCompile group: 'org.objenesis', name: 'objenesis', version:'3.1'
 
-	testCompile( 'com.athaydes:spock-reports:1.6.2' ) {
+	testCompile( 'com.athaydes:spock-reports:1.6.3' ) {
     transitive = false // this avoids affecting your version of Groovy/Spock
   }
 
@@ -182,11 +182,12 @@ publishing {
       pom.withXml {
         asNode().appendNode("name", componentName)
         asNode().appendNode("description", "Services that take profiling data and export it various formats")
-        asNode().appendNode("url", "https://interlok.adaptris.net/interlok-docs/developer-profiler.html")
+        // asNode().appendNode("url", "https://interlok.adaptris.net/interlok-docs/developer-profiler.html")
         def properties = asNode().appendNode("properties")
         properties.appendNode("target", "3.9.0+")
         properties.appendNode("tags", "profiling,csv,json,elastic")
         properties.appendNode("license", "false")
+        properties.appendNode("deprecated", "If you want metrics; use interlok-profiler-prometheus")
       }
     }
   }
