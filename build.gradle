@@ -27,7 +27,7 @@ ext {
   organizationUrl = "http://interlok.adaptris.net"
   slf4jVersion = '1.7.30'
   aspectjVersion = '1.9.2'
-  groovyVersion = '2.5.11'
+  groovyVersion = '2.5.12'
 }
 
 sourceCompatibility = 1.8
@@ -101,7 +101,7 @@ dependencies {
   compile ("org.codehaus.groovy:groovy:$groovyVersion")
   annotationProcessor ("com.adaptris:interlok-core-apt:$interlokCoreVersion") {changing= true}
   testCompile group: 'org.spockframework', name: 'spock-core', version:'1.3-groovy-2.5'
-  testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.10.9'
+  testCompile group: 'net.bytebuddy', name: 'byte-buddy', version:'1.10.12'
   testCompile group: 'org.objenesis', name: 'objenesis', version:'3.1'
 
 	testCompile( 'com.athaydes:spock-reports:1.7.1' ) {
